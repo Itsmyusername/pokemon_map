@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
-from pokemon_entities.models import Pokemon, PokemonEntitiy
+from pokemon_entities.models import Pokemon, PokemonEntity
 
 
 MOSCOW_CENTER = [55.751244, 37.618423]
@@ -31,7 +31,7 @@ def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
 def show_all_pokemons(request):
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     now = datetime.now()
-    entities = PokemonEntitiy.objects.filter(appeared_at__lte=now, disappeared_at__gt=now)
+    entities = PokemonEntity.objects.filter(appeared_at__lte=now, disappeared_at__gt=now)
     
     for entity in entities:
         pokemon = entity.pokemon
@@ -56,7 +56,7 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     requested_pokemon = get_object_or_404(Pokemon, id=pokemon_id)
-    pokemon_entities = PokemonEntitiy.objects.filter(pokemon=requested_pokemon)
+    pokemon_entities = PokemonEntity.objects.filter(pokemon=requested_pokemon)
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity in pokemon_entities:
