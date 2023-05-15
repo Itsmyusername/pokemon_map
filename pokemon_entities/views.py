@@ -66,7 +66,7 @@ def show_pokemon(request, pokemon_id):
             requested_pokemon.photo.path
         )
 
-    pokemon_dict = {
+    pokemon_serialized = {
         'pokemon_id': requested_pokemon.id,
         'img_url': requested_pokemon.photo.url,
         'title_ru': requested_pokemon.title,
@@ -78,5 +78,5 @@ def show_pokemon(request, pokemon_id):
     }
 
     return render(request, 'pokemon.html', context={
-        'map': folium_map._repr_html_(), 'pokemon': pokemon_dict
+        'map': folium_map._repr_html_(), 'pokemon': pokemon_serialized
     })
